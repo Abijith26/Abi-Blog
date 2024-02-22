@@ -8,6 +8,7 @@ import {
 } from "../redux/user/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import pic from "../assets/Sign_up.png";
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -98,6 +99,8 @@ export default function SignIn() {
                 "Sign In"
               )}
             </Button>
+
+            <OAuth />
           </form>
           <div className="flex gap-3 mt-3 text-sm ">
             <span>Ready to join?</span>
