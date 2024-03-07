@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
+import { signoutSuccess } from "../redux/user/userSlice.js";
 import { toggleTheme } from "../redux/theme/themeSlice";
 
 export default function Header() {
@@ -11,6 +12,7 @@ export default function Header() {
   const { theme } = useSelector((store) => store.theme);
   const dispatch = useDispatch();
   const path = useLocation().pathname;
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
@@ -22,6 +24,7 @@ export default function Header() {
         console.log(data.message);
       } else {
         dispatch(signoutSuccess());
+        navigate("/signup");
       }
     } catch (error) {
       console.log(error.message);
