@@ -1,5 +1,5 @@
 import { Button, TextInput } from "flowbite-react";
-
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice.js";
 export default function Dashboard() {
@@ -51,6 +51,13 @@ export default function Dashboard() {
           disabled
           readOnly
         />
+        {currentUser.isAdmin && (
+          <Link to="/create-post">
+            <Button type="button" className="w-full">
+              Create a Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex justify-center mt-5">
         <span className="cursor-pointer" onClick={handleSignOut}>
