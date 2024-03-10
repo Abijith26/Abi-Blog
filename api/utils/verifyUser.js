@@ -20,7 +20,7 @@ export const verifyToken = (req, res, next) => {
       console.log("Token verification error");
       return next(errorHandler(401, "Unauthorized"));
     }
-    console.log(`User data: ${JSON.stringify(user)}`);
+    console.log(`Payload: ${JSON.stringify(user)}`);
     //user is added to the request
     req.user = user;
     // to invoke the second function in the put()
