@@ -27,7 +27,7 @@ export default function Dashboard() {
       {/* Profile */}
 
       {tab === "profile" && <DashProfile />}
-      {tab === "post" && <DashPost />}
+      {tab === "posts" && <DashPost />}
     </div>
   );
 }

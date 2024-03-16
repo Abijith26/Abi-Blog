@@ -27,8 +27,10 @@ export const create = async (req, res, next) => {
   }
 };
 
+// Getting all the posts from MongoDB
 export const getposts = async (req, res, next) => {
   try {
+    console.log("Request Received");
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
@@ -47,6 +49,7 @@ export const getposts = async (req, res, next) => {
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
+    console.log("Got the posts.");
     //  Total number of posts
     const totalPosts = await Post.countDocuments();
 
@@ -63,6 +66,7 @@ export const getposts = async (req, res, next) => {
       createdAt: { $gte: oneMonthAgo },
     });
 
+    console.log("Sending.");
     res.status(200).json({
       posts,
       totalPosts,
