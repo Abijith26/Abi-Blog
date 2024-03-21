@@ -1,7 +1,7 @@
-import { Alert, Button, Textarea, Alert } from "flowbite-react";
-import { useState } from "react";
+import { Alert, Button, Textarea } from "flowbite-react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Comment from "./Comment";
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -9,6 +9,9 @@ export default function CommentSection({ postId }) {
   const [commentError, setCommentError] = useState(null);
 
   const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
+
+  // Submitting
   async function handleSubmit(e) {
     e.preventDefault();
     if (comment.length > 200) {
@@ -29,6 +32,7 @@ export default function CommentSection({ postId }) {
       });
 
       const data = await res.json();
+      console.log(data);
       if (res.ok) {
         setComment("");
         setCommentError(null);
@@ -54,6 +58,33 @@ export default function CommentSection({ postId }) {
     getComments();
   }, [postId]);
 
+  async function handleLike(commentId) {
+    try {
+      if (!currentUser) {
+        navigate("/signin");
+        return;
+      }
+
+      const res = await fetch(`/api/comment/likeComment/${commentId}`, {
+        method: "PUT",
+      });
+      const data = await res.json();
+      setComments(
+        comments.map((comment) =>
+          comment._id === commentId
+            ? {
+                ...comment,
+                likes: data.likes,
+                numberOfLikes: data.likes.length,
+              }
+            : comment
+        )
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
       {currentUser ? (
@@ -73,7 +104,7 @@ export default function CommentSection({ postId }) {
       ) : (
         <div className="text-sm text-teal-500 my-5 flex gap-1">
           You must sign-in to comment.
-          <Link to={"/sign-in"} className="text-blue-500 hover:underline">
+          <Link to={"/signin"} className="text-blue-500 hover:underline">
             Sign In
           </Link>
         </div>
@@ -116,9 +147,9 @@ export default function CommentSection({ postId }) {
               <p>{comments.length}</p>
             </div>
           </div>
-          {comments.map((comment) => {
-            <Comment key={comment._id} comment={comment} />;
-          })}
+          {comments.map((comment) => (
+            <Comment key={comment._id} comment={comment} onLike={handleLike} />
+          ))}
         </>
       )}
     </div>
