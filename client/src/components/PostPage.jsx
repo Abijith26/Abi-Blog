@@ -40,7 +40,7 @@ export default function PostPage() {
   useEffect(() => {
     try {
       async function fetchRecentPosts() {
-        const res = await fetch(`/api/post/getPosts?limit=3`);
+        const res = await fetch(`/api/post/getPosts?limit=4`);
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);
@@ -92,13 +92,13 @@ export default function PostPage() {
       <CommentSection postId={post._id} />
 
       {/* Showing Recent Post */}
-      <div className="flex flex-col justify-center items-center mb-5">
+      {/* <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent articles</h1>
         <div className="flex flex-wrap gap-5 mt-5 justify-center">
           {recentPosts &&
             recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }

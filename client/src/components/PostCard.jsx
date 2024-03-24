@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({ post }) {
   return (
-    <div className="w-full border border-teal-500 h-[400px]  sm:w-[430px]">
+    <div className="w-full border border-teal-500 h-[400px]  sm:w-[430px] mx-auto">
       <Link to={`/post/${post.slug}`}>
         <img
           src={post.image}
           alt="post-cover"
-          className="h-[260px] w-full object-cover "
+          className="h-[250px] w-full object-cover "
         />
       </Link>
       <div className="p-3 flex flex-col gap-2">
