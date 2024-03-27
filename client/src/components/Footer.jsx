@@ -1,9 +1,7 @@
-import { Footer } from "flowbite-react";
-import React from "react";
 import { Link } from "react-router-dom";
 export default function FooterComp() {
   return (
-    <div className="border border-t-8 border-gray-900 rounded-lg bg-neutral-300">
+    <div className="border border-t-8 border-gray-900 rounded-lg bg-neutral-300 m-0">
       <div className="flex justify-center items-center gap-5 py-5">
         <Link
           to="/"
